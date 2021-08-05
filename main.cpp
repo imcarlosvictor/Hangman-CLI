@@ -25,8 +25,8 @@ int main()
   // ############# CHOOSE RANDOM WORD #############
   word = random_word(word_list);
 
+  // ############# GAME LOGIC #############
   do {
-    // ############# GAME LOGIC #############
     if (win){
       cout << "\n\nThanks for playing!\n\n";
       break;
@@ -36,13 +36,16 @@ int main()
     // Display random word on screen
     cout << word << endl;
     for (int i=0; i<word.length(); ++i) {
-      bool print_guess;
+      int count = 0;
       for (int j=0; j<valid_guesses.size(); ++j) {
         // Print letters that were guessed correctly
-        if (i == valid_guesses[j]) {
-          cout << word[i];
+        if (word[i] == valid_guesses[j]) {
+          count += 1;
+          cout << word[i] << " ";
         }
       }
+      if (count == 0)
+        cout << "_ ";
     }
     cout << endl;
 
@@ -88,7 +91,7 @@ void validate_answer(string random_word, char answer, vector<int> &guesses,  int
   bool valid = false;
   for (int i=0; i<random_word.length(); ++i) {
     if (random_word[i] == answer) {
-      guesses.push_back(i);  // Return index of letter
+      guesses.push_back(random_word[i]);  // Return index of letter
       valid = true;
       break;
     }
